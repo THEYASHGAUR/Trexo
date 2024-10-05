@@ -6,9 +6,9 @@
 
 - **Overview:** A full-stack e-commerce application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) featuring a user-friendly interface and an admin panel for managing products and orders.
 - **Demo Links:**
-  - **Frontend:** [Live Demo](https://mern-e-commerce-app-ofhb.vercel.app/)
-  - **Admin Panel:** [Admin Panel Demo](https://mern-e-commerce-app-admin.vercel.app/)
-  - **Backend API:** [Backend API](https://mern-e-commerce-app-backend.onrender.com/)
+  - **Frontend:** [Live Demo](https://trexo-one.vercel.app/collection)
+  - **Admin Panel:** [Admin Panel Demo](https://trexo-admin.vercel.app/)
+  - **Backend API:** [Backend API](https://trexo.onrender.com/)
 
   
 #### Key Features:
