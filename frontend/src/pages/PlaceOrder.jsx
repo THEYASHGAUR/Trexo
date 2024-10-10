@@ -1,13 +1,15 @@
-import  { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import LoadingPage from '../components/Loading';
 
 const PlaceOrder = () => {
 
+    const [loading, setLoading] = useState(false);
     const [method, setMethod] = useState('cod');
     const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
     const [formData, setFormData] = useState({
@@ -33,15 +35,15 @@ const PlaceOrder = () => {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: order.amount,
             currency: order.currency,
-            name:'Order Payment',
-            description:'Order Payment',
+            name: 'Order Payment',
+            description: 'Order Payment',
             order_id: order.id,
             receipt: order.receipt,
             handler: async (response) => {
                 console.log(response)
                 try {
-                    
-                    const { data } = await axios.post(backendUrl + '/api/order/verifyRazorpay',response,{headers:{token}})
+
+                    const { data } = await axios.post(backendUrl + '/api/order/verifyRazorpay', response, { headers: { token } })
                     if (data.success) {
                         navigate('/orders')
                         setCartItems({})
@@ -58,9 +60,11 @@ const PlaceOrder = () => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault()
+        setLoading(true);
         try {
 
             let orderItems = []
+
 
             for (const items in cartItems) {
                 for (const item in cartItems[items]) {
@@ -80,49 +84,62 @@ const PlaceOrder = () => {
                 items: orderItems,
                 amount: getCartAmount() + delivery_fee
             }
-            
+
 
             switch (method) {
 
                 // API Calls for COD
-                case 'cod':
-                    const response = await axios.post(backendUrl + '/api/order/place',orderData,{headers:{token}})
+                case 'cod': {
+
+                    const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
                     if (response.data.success) {
                         setCartItems({})
                         navigate('/orders')
                     } else {
                         toast.error(response.data.message)
                     }
+                    setLoading(false);
                     break;
+                }
 
-                case 'stripe':
-                    const responseStripe = await axios.post(backendUrl + '/api/order/stripe',orderData,{headers:{token}})
+                case 'stripe': {
+
+                    const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
                     if (responseStripe.data.success) {
-                        const {session_url} = responseStripe.data
+                        const { session_url } = responseStripe.data
                         window.location.replace(session_url)
                     } else {
                         toast.error(responseStripe.data.message)
                     }
+                    setLoading(false);
                     break;
+                }
 
-                case 'razorpay':
+                case 'razorpay': {
 
-                    const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, {headers:{token}})
+                    const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, { headers: { token } })
                     if (responseRazorpay.data.success) {
                         initPay(responseRazorpay.data.order)
                     }
-
                     break;
+                }
 
                 default:
+                    setLoading(false);
                     break;
+
             }
 
 
         } catch (error) {
             console.log(error)
             toast.error(error.message)
+            setLoading(false);
         }
+    }
+
+    if (loading) {
+        return <LoadingPage />; // Conditionally render the loading component
     }
 
 

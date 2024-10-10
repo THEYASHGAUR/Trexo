@@ -1,9 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import LoadingPage from '../components/Loading';
 
 const Login = () => {
+
+  const [loading , setLoading] = useState(false);
 
   const [currentState, setCurrentState] = useState('Login');
   const { token, setToken, navigate, backendUrl } = useContext(ShopContext)
@@ -14,6 +17,7 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
       event.preventDefault();
+      setLoading(true);
       try {
         if (currentState === 'Sign Up') {
           
@@ -36,11 +40,13 @@ const Login = () => {
           }
 
         }
+        setLoading(false)
 
 
       } catch (error) {
         console.log(error)
         toast.error(error.message)
+        setLoading(false)
       }
   }
 
@@ -49,6 +55,10 @@ const Login = () => {
       navigate('/')
     }
   },[token])
+
+  if(loading){
+    return <LoadingPage />
+  }
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'>
