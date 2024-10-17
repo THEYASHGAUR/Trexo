@@ -24,3 +24,19 @@
 - **Frontend:** React.js, Redux, Axios, TailwindCSS
 - **Backend:** Node.js, Express.js, MongoDB, Mongoose
 - **Deployment:** Vercel (Frontend), Render (Backend)
+
+#### Client Side
+![image](https://github.com/user-attachments/assets/4e17b8b5-e5c8-4729-9f27-c4be1dc3e31e)
+Landing Page
+
+![image](https://github.com/user-attachments/assets/3652f80a-0561-463c-af12-c00731becc70)
+Login and signup page
+
+
+![image](https://github.com/user-attachments/assets/bb20b192-0dee-47db-94db-551983cbd14e)
+Payment page
+
+
+
+
+
