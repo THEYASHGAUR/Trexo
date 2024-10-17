@@ -38,5 +38,17 @@ Payment page
 
 
 
+#### Admin Panel
+![image](https://github.com/user-attachments/assets/30aa79b7-3d93-4f37-ab3c-1b5716c04437)
+add items page
+
+![image](https://github.com/user-attachments/assets/b5310b8d-24cb-4b91-8df4-1f2a3dddeaef)
+pages to update details of items.
+
+![image](https://github.com/user-attachments/assets/338e0766-837a-4ea5-9aef-f53061973d58)
+Real-time update of details of order placed by user.
+
+
+
 
 
