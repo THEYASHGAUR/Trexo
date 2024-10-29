@@ -2,27 +2,35 @@ import axios from 'axios'
 import { useState } from 'react'
 import { backendUrl } from '../App'
 import { toast } from 'react-toastify'
+import LoadingPage from '../../../frontend/src/components/Loading';
 
 const Login = ({setToken}) => {
 
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [loading , setLoading] = useState(false);
 
     const onSubmitHandler = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true); 
             const response = await axios.post(backendUrl + '/api/user/admin',{email,password})
             if (response.data.success) {
                 setToken(response.data.token)
             } else {
                 toast.error(response.data.message)
             }
+            setLoading(false) // Set loading to false after API call completes
              
         } catch (error) {
             console.log(error);
             toast.error(error.message)
+            setLoading(false) // Stop loading in case of an error
         }
     }
+    if(loading){
+        return <LoadingPage />
+      }
 
   return (
     <div className='min-h-screen flex items-center justify-center w-full'>

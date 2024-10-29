@@ -8,6 +8,8 @@
 - **Demo Links:**
   - **Frontend:** [Live Demo](https://trexo-one.vercel.app/collection)
   - **Admin Panel:** [Admin Panel Demo](https://trexo-admin.vercel.app/)
+      - Username - admin@example.com
+      - Password - helloworld123
   - **Backend API:** [Backend API](https://trexo.onrender.com/)
 
   
