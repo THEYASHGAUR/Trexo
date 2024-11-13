@@ -1,11 +1,16 @@
 import multer from "multer";
 
+// Define the storage settings for multer
 const storage = multer.diskStorage({
-    filename:function(req,file,callback){
-        callback(null,file.originalname)
+    // Set the filename for uploaded files
+    filename: function(req, file, callback) {
+        // Use the original file name for storage
+        callback(null, file.originalname);
     }
-})
+});
 
-const upload = multer({storage})
+// Create an instance of multer with the defined storage settings
+const upload = multer({ storage });
 
-export default upload
+// Export the upload middleware to be used in routes
+export default upload;
